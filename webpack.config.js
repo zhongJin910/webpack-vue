@@ -3,18 +3,22 @@
 const path = require("path");
 const _path = (file) => path.resolve(__dirname, file);
 
+const VueLoaderPlugin = require("vue-loader/lib/plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = {
   mode: "development",
-  entry: "./index.js",
-//   entry: _path("./src/mian.js"), // 入口
+  entry: _path("./src/mian.js"), // 入口
   output: {
     filename: "js/[name].js",
     path: _path("dist"), // 打包输出文件
   },
   devServer: {
+    historyApiFallback: true,
+    static: { directory: _path("public") }, // 启动文件,
     compress: true,
     port: 7000,
     hot: true, // 热更新
@@ -41,7 +45,14 @@ module.exports = {
       },
       clearConsole: false, // 是否每次都清空控制台
     }),
+    new VueLoaderPlugin(),
+    // new BundleAnalyzerPlugin(), //  包大小分析
   ],
+  resolve: {
+    alias: {
+      "@": path.join(__dirname, "src"),
+    },
+  },
   module: {
     rules: [
       // 编译vue
@@ -55,11 +66,11 @@ module.exports = {
         use: ["style-loader", "css-loader", "sass-loader"],
       },
       // 不编译node_modules下的文件
-    //   {
-    //     test: /\.js$/,
-    //     exclude: /node_modules/,
-    //     loader: "babel-loader",
-    //   },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "babel-loader",
+      },
     ],
   },
 };
