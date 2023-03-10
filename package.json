@@ -1,0 +1,25 @@
+{
+  "name": "webpack-vue",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/zhongJin910/webpack-vue.git",
+  "author": "jin.zhong <jin.zhong@qizhidao.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "webpack serve --progress --config ./webpack.config.js",
+    "build": "webpack --config webpack.config.js"
+  },
+  "dependencies": {
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.76.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "devDependencies": {
+    "css-loader": "^6.7.3",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "node-sass": "^8.0.0",
+    "sass-loader": "^13.2.0",
+    "style-loader": "^3.3.1"
+  }
+}
